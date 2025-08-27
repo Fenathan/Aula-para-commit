@@ -1,65 +1,64 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
-/**
- * Uma calculadora simples que opera via terminal.
- * O usuário informa dois números e um operador (+, -, *, /)
- * e o programa exibe o resultado da operação.
- */
 public class Calculadora {
 
-    public static void main(String[] args) {
-        // Objeto Scanner para ler a entrada do usuário
-        Scanner scanner = new Scanner(System.in);
+    public static int somar(int a, int b) {
+        return a + b;
+    }
 
-        double numero1, numero2, resultado;
-        char operador;
+    public static int subtrair(int a, int b) {
+        return a - b;
+    }
+,
+    public static int multiplicar(int a, int b) {
+        return a * b;
+    }
 
-        try {
-            // Solicita e lê o primeiro número
-            System.out.print("Digite o primeiro número: ");
-            numero1 = scanner.nextDouble();
-
-            // Solicita e lê o operador
-            System.out.print("Digite o operador (+, -, *, /): ");
-            operador = scanner.next().charAt(0);
-
-            // Solicita e lê o segundo número
-            System.out.print("Digite o segundo número: ");
-            numero2 = scanner.nextDouble();
-
-            // Realiza o cálculo com base no operador
-            switch (operador) {
-                case '+':
-                    resultado = numero1 + numero2;
-                    break;
-                case '-':
-                    resultado = numero1 - numero2;
-                    break;
-                case '*':
-                    resultado = numero1 * numero2;
-                    break;
-                case '/':
-                    // Verifica a divisão por zero
-                    if (numero2 == 0) {
-                        System.out.println("Erro: Divisão por zero não é permitida.");
-                        return; // Encerra o programa
-                    }
-                    resultado = numero1 / numero2;
-                    break;
-                default:
-                    System.out.println("Operador inválido. Use +, -, *, ou /.");
-                    return; // Encerra o programa
-            }
-
-            // Exibe o resultado formatado
-            System.out.printf("Resultado: %.2f %c %.2f = %.2f\n", numero1, operador, numero2, resultado);
-
-        } catch (InputMismatchException e) {
-            System.out.println("Erro: Entrada inválida. Por favor, insira números válidos.");
-        } finally {
-            // Fecha o scanner para liberar recursos
-            scanner.close();
+    public static double dividir(int a, int b) {
+        if (b == 0) {
+            throw new IllegalArgumentException("Não é possível dividir por zero!");
         }
+        return (double) a / b;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("=== Calculadora Simples ===");
+        System.out.println("Escolha a operação:");
+        System.out.println("1 - Somar");a
+        System.out.println("2 - Subtrair");
+        System.out.println("3 - Multiplicar");
+        System.out.println("4 - Dividir");
+        System.out.print("Opção: ");
+        int opcao = sc.nextInt();
+
+        System.out.print("Digite o primeiro número: ");
+        int a = sc.nextInt();
+        System.out.print("Digite o segundo número: ");
+        int b = sc.nextInt();
+
+        switch (opcao) {
+            case 1:
+                System.out.println("Resultado: " + somar(a, b));
+                break;
+            case 2:
+                System.out.println("Resultado: " + subtrair(a, b));
+                break;
+            case 3:
+                System.out.println("Resultado: " + multiplicar(a, b));
+                break;
+            case 4:
+                try {
+                    System.out.println("Resultado: " + dividir(a, b));
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+            default:
+                System.out.println("Opção inválida!");
+        }
+
+        sc.close();
     }
 }
